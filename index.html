@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Welcome to Standard Company</title>
+  <style>
+    :root {
+      --deep: #0a1a3f;
+      --mid: #1f5fd1;
+      --glow-a: rgba(255,207,112,0.30);
+      --glow-b: rgba(124,196,255,0.40);
+      --accent: #ffcf70;
+      --accent-2: #7cc4ff;
+      --on-accent: #0a1a3f;
+      --text: #ffffff;
+      --muted: rgba(255, 255, 255, 0.78);
+      --line: rgba(255, 255, 255, 0.16);
+    }
+
+    * { box-sizing: border-box; margin: 0; }
+    html, body { height: 100%; }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      color: var(--text);
+      font-family: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background:
+        radial-gradient(60rem 40rem at 12% 0%, var(--glow-a), transparent 60%),
+        radial-gradient(55rem 42rem at 95% 100%, var(--glow-b), transparent 60%),
+        linear-gradient(135deg, var(--deep), var(--mid));
+      background-attachment: fixed;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* fine grid texture */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 4rem 4rem;
+      opacity: 0.35;
+      -webkit-mask-image: radial-gradient(ellipse at center, #000 20%, transparent 75%);
+      mask-image: radial-gradient(ellipse at center, #000 20%, transparent 75%);
+    }
+
+    .wrap {
+      position: relative;
+      width: 100%;
+      max-width: 75rem;
+      margin: 0 auto;
+      padding: 0 clamp(1rem, 4vw, 3rem);
+    }
+
+    /* header */
+    header { padding: 1.5rem 0; }
+    header .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .brand svg { width: 2.25rem; height: 2.25rem; flex: none; }
+    nav { display: flex; align-items: center; gap: 2rem; }
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--text); }
+    nav a.pill {
+      color: var(--text);
+      padding: 0.55rem 1.1rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.07);
+    }
+    nav a.pill:hover { background: rgba(255, 255, 255, 0.14); }
+
+    /* hero */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: 3rem 0;
+    }
+    .hero { animation: rise 0.9s ease-out both; }
+    .bar {
+      width: 4rem;
+      height: 0.3rem;
+      margin-bottom: 1.5rem;
+      border-radius: 1rem;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    }
+    h1 {
+      white-space: nowrap;
+      font-size: clamp(1rem, 5.2vw, 4.5rem);
+      font-weight: 750;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+    .lead {
+      max-width: 36rem;
+      margin-top: 1.5rem;
+      font-size: clamp(1rem, 1.6vw, 1.25rem);
+      line-height: 1.6;
+      color: var(--muted);
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-top: 2.25rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.9rem 1.7rem;
+      border-radius: 0.7rem;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.15s, background 0.2s, box-shadow 0.2s;
+    }
+    .btn.primary {
+      background: var(--accent);
+      color: var(--on-accent);
+      box-shadow: 0 0.6rem 1.6rem rgba(0, 0, 0, 0.28);
+    }
+    .btn.primary:hover { transform: translateY(-2px); }
+    .btn.ghost {
+      color: var(--text);
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.07);
+    }
+    .btn.ghost:hover { background: rgba(255, 255, 255, 0.15); }
+
+    a:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    /* footer */
+    footer { padding: 1.5rem 0 2rem; }
+    footer .wrap {
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(1.25rem); }
+      to   { opacity: 1; transform: none; }
+    }
+    @media (max-width: 40rem) {
+      nav a:not(.pill) { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero { animation: none; }
+      .btn, nav a { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="brand" href="#" aria-label="Standard Company home">
+        <svg viewBox="0 0 40 40" aria-hidden="true">
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#ffcf70"/>
+              <stop offset="1" stop-color="#7cc4ff"/>
+            </linearGradient>
+          </defs>
+          <rect width="40" height="40" rx="10" fill="url(#g)"/>
+          <rect x="9" y="10" width="22" height="5" rx="2.5" fill="#0a1a3f"/>
+          <rect x="9" y="18" width="15" height="5" rx="2.5" fill="#0a1a3f" opacity="0.75"/>
+          <rect x="9" y="26" width="22" height="5" rx="2.5" fill="#0a1a3f"/>
+        </svg>
+        Standard Company
+      </a>
+      <nav aria-label="Main">
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a class="pill" href="#">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <section class="hero">
+        <div class="bar"></div>
+        <h1>Welcome to Standard Company</h1>
+        <p class="lead">Dependable solutions, built to a higher standard and delivered with care.</p>
+        <div class="actions">
+          <a class="btn primary" href="#">Get started</a>
+          <a class="btn ghost" href="#">Learn more</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">&copy; 2026 Standard Company. All rights reserved.</div>
+  </footer>
+</body>
+</html>
